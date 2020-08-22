@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+
 // import DB and run
+const connectDb = require('./config/db');
+connectDb();
 
 const PORT = process.env.PORT || 3000;
 
