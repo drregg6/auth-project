@@ -6,8 +6,7 @@ const router = express.Router();
 // Get all Users
 router.get('/', async (req, res) => {
   const users = await User.find();
-  console.log(users);
-  res.send('hello world');
+  res.send(users);
 });
 
 
@@ -28,7 +27,6 @@ router.post('/', async (req, res) => {
   // Check if the user already exists
   // findOne will return the user or null
   const user = await User.findOne({ username });
-  console.log(user);
   if (user) {
     return res.send('User already exists. Please sign in.');
   }
@@ -50,6 +48,26 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Server error');
+  }
+});
+
+
+// Delete a user
+// In the future, this will be used with jwt token
+// And will find the user by the signed in user id
+router.delete('/:username', async (req, res) => {
+  const { username } = req.params;
+  console.log(username)
+  // see if the user exists
+  const user = await User.findOne({ username });
+  if (!user) return res.send('No user found');
+  try {
+    await User.deleteOne({ username });
+    const users = await User.find();
+    res.send(users);
+  } catch (error) {
+    console.error(error.message);
+    res.send('Server error');
   }
 });
 
