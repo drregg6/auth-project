@@ -9,7 +9,11 @@ module.exports = (req, res, next) => {
   try {
     const decoded = jwt.decode(token, process.env.JWT_SECRET);
 
-    res.user = decoded.user; // payload
+    // payload
+    // this will now be accessible for private routes
+    // and accessed with req.user
+    // so to delete a user, get the id with req.user.id
+    res.user = decoded.user;
     next();
   } catch (error) {
     console.error(error.message);
