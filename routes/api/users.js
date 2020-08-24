@@ -1,4 +1,6 @@
+require('dotenv').config();
 const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
@@ -12,9 +14,17 @@ router.get('/', async (req, res) => {
 
 
 // Get a User
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.send(id);
+router.get('/:username', async (req, res) => {
+  const { username } = req.params;
+  const user = await User.findOne({ username });
+  if (!user) return res.send('User does not exist');
+
+  try {
+    res.send(user);
+  } catch (error) {
+    console.error(error.message);
+    res.send('Server error');
+  }
 });
 
 
@@ -44,6 +54,25 @@ router.post('/', async (req, res) => {
 
   try {
     await newUser.save();
+
+    // Sign in the user with jwt
+    // Step 1: create a payload with user id
+    const payload = {
+      user: {
+        id: user.id
+      }
+    };
+    // Step 2: create a .sign
+    jwt.sign(
+      payload, // payload
+      process.env.JWT_SECRET, // secret
+      { expiresIn: "2 days" }, // options
+      (err, token) => { // accepts a callback for async
+        if (err) throw error;
+        res.send({ token }); // saved within browser header as 'x-auth-token'
+      }
+    )
+
     res.send('User created');
   } catch (error) {
     console.error(error.message);
@@ -61,6 +90,7 @@ router.delete('/:username', async (req, res) => {
   // see if the user exists
   const user = await User.findOne({ username });
   if (!user) return res.send('No user found');
+
   try {
     await User.deleteOne({ username });
     const users = await User.find();
