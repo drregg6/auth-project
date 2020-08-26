@@ -23,3 +23,9 @@ beforeEach((done) => {
     done();
   });
 });
+
+after(done => {
+  mongoose.connection.collections.users.drop(() => {
+    done();
+  });
+})

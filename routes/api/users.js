@@ -8,7 +8,7 @@ const router = express.Router();
 // Get all Users
 router.get('/', async (req, res) => {
   const users = await User.find();
-  res.send(users);
+  res.status(200).json({ users });
 });
 
 
@@ -17,13 +17,13 @@ router.get('/', async (req, res) => {
 router.get('/:username', async (req, res) => {
   const { username } = req.params;
   const user = await User.findOne({ username });
-  if (!user) return res.send('User does not exist');
+  if (!user) return res.status(401).json({ msg: 'User does not exist' });
 
   try {
     res.send(user);
   } catch (error) {
     console.error(error.message);
-    res.send('Server error');
+    res.status(500).json({ msg: 'Server error' });
   }
 });
 
@@ -36,24 +36,24 @@ router.post('/', async (req, res) => {
 
   // Check if the user already exists
   // findOne will return the user or null
-  const user = await User.findOne({ username });
+  let user = await User.findOne({ username });
   if (user) {
-    return res.send('User already exists. Please sign in.');
+    return res.status(401).send('User already exists. Please sign in.');
   }
   
   // Create a new user to be saved into the database
-  const newUser = new User({
+  user = new User({
     username,
     password
   });
 
-  // Crypt the password
+  // Hash the password
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
-  newUser.password = hash;
+  user.password = hash;
 
   try {
-    await newUser.save();
+    await user.save();
 
     // Sign in the user with jwt
     // Step 1: create a payload with user id
@@ -69,14 +69,46 @@ router.post('/', async (req, res) => {
       { expiresIn: "2 days" }, // options
       (err, token) => { // accepts a callback for async
         if (err) throw error;
-        res.send({ token }); // saved within browser header as 'x-auth-token'
+        res.status(200).json({ token }); // saved within browser header as 'x-auth-token'
       }
     )
-
-    res.send('User created');
   } catch (error) {
     console.error(error.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
+
+// Update a user
+router.put('/update', async (req, res) => {
+  let { username, password, newPassword, repeatPassword } = req.body;
+  if (newPassword !== repeatPassword) return res.status(401).json({ msg: 'Passwords do not match.' });
+
+  try {
+    let user = await User.findOne({ username });
+    if (!user) return res.status(401).json({ msg: 'User not found.' });
+
+    let decodedPass = await bcrypt.compareSync(password, user.password);
+    if (!decodedPass) return res.status(401).json({ msg: 'Incorrect password.' });
+    let comparedPass = await bcrypt.compare(newPassword, user.password);
+    if (comparedPass) return res.status(401).json({ msg: 'Password cannot be the same as old password.' });
+
+    // hash new password
+    const salt = await bcrypt.genSalt(10);
+    newPassword = await bcrypt.hash(newPassword, salt);
+
+    if (user.password === newPassword) return res.status(401).json({ msg: 'Password cannot be the same as old password.' });
+
+    user = await User.findOneAndUpdate(
+      { username },
+      { $set: { password: newPassword } },
+      { new: true }
+    )
+    return res.status(200).json({ msg: 'Password updated.' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
   }
 });
 
