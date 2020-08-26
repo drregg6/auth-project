@@ -17,3 +17,10 @@ before((done) => {
     })
     .on('error', (error) => console.log(error))
 });
+
+beforeEach((done) => {
+  mongoose.connection.collections.users.drop(() => {
+    console.log('Table dropped');
+    done();
+  });
+});
