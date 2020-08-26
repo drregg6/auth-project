@@ -20,7 +20,6 @@ before((done) => {
 
 beforeEach((done) => {
   mongoose.connection.collections.users.drop(() => {
-    console.log('Table dropped');
     done();
   });
 });
