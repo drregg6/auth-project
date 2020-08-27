@@ -74,7 +74,7 @@ router.post('/', async (req, res) => {
       { expiresIn: "2 days" }, // options
       (err, token) => { // accepts a callback for async
         if (err) throw error;
-        res.status(200).json({ token }); // saved within browser header as 'x-auth-token'
+        res.status(201).json({ token }); // saved within browser header as 'x-auth-token'
       }
     )
   } catch (error) {

@@ -12,14 +12,15 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "server": "env-cmd -f ./.env nodemon server.js",
     "test": "env-cmd -f ./test.env jest --watch"
   },
   "jest": {
-    "environment": "node"
+    "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
