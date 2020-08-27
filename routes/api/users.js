@@ -37,13 +37,21 @@ router.get('/:username', async (req, res) => {
 // Add user to database
 router.post('/', async (req, res) => {
   // Get information from the user
-  const { username, password } = req.body;
+  const { username, password, repeatPassword } = req.body;
+  const regTest = /[^0-9a-z]/i;
+
+  // Quick checks for form entry errors
+  if (password !== repeatPassword) return res.status(401).json({ msg: 'Passwords must match.' });
+  if (username.length < 4) return res.status(401).json({ msg: 'Username must be at least 4 characters.' });
+  if (password.length < 8) return res.status(401).json({ msg: 'Password must be at least 8 characters.' });
+  if (username.match(regTest)) return res.status(401).json({ msg: 'Username may only contain letters or numbers.' })
+  if (password.match(regTest)) return res.status(401).json({ msg: 'Password may only contain letters or numbers.' })
 
   // Check if the user already exists
   // findOne will return the user or null
   let user = await User.findOne({ username });
   if (user) {
-    return res.status(401).send('User already exists. Please sign in.');
+    return res.status(401).json({ msg: 'User already exists. Please login.' });
   }
   
   // Create a new user to be saved into the database

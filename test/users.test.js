@@ -31,44 +31,119 @@ afterEach(async () => {
 
 // Create User
 describe('CREATE USER', () => {
+  let passingUser = {
+    username: 'user',
+    password: 'password',
+    repeatPassword: 'password'
+  };
   it('should create a user', async () => {
-    const response = await request(app).post('/api/users')
-      .send({
-        username: 'user',
-        password: 'password',
-        repeatPassword: 'password'
-      });
+    const response = await request(app)
+      .post('/api/users')
+      .send(passingUser);
     let users = await User.find();
     expect(response.status).toBe(201);
     expect(users.length).toBe(3);
   });
 
   it('should not create a user if the passwords do not match', async () => {
-    expect(true);
+    let testUser = {
+      username: 'daveregg',
+      password: 'password',
+      repeatPassword: 'pasword'
+    }
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser);
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Passwords must match.')
   });
 
   it('should return a jwt token', async () => {
-    expect(true);
+    const res = await request(app)
+      .post('/api/users')
+      .send(passingUser);
+    let { status, body } = res;
+    expect(status).toBe(201);
+    expect(body).toHaveProperty('token');
   });
 
   it('should crypt the password', async () => {
-    expect(true);
+    await request(app)
+      .post('/api/users')
+      .send(passingUser);
+    let user = await User.findOne({ username: passingUser.username });
+    expect(user.password).not.toBe(passingUser.password);
   });
 
   it('should not be able to create a user with duplicate usernames', async () => {
-    expect(true);
+    let testUser = {
+      username: 'user1',
+      password: 'password',
+      repeatPassword: 'password'
+    }
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser)
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('User already exists. Please login.')
   });
 
   it('should not create a user if the password is not at least 8 characters', async () => {
-    expect(true);
+    let testUser = {
+      username: 'user4',
+      password: 'cat',
+      repeatPassword: 'cat'
+    }
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser)
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Password must be at least 8 characters.');
   });
 
-  it('should not create a user if the username is not at least 6 characters', async () => {
-    expect(true);
+  it('should not create a user if the username is not at least 4 characters', async () => {
+    let testUser = {
+      username: 'cat',
+      password: 'password',
+      repeatPassword: 'password'
+    }
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser)
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Username must be at least 4 characters.');
   });
 
-  it('should only accept usernames and passwords with letters and numbers', async () => {
-    expect(true);
+  it('should only accept usernames with letters and numbers', async () => {
+    let testUser = {
+      username: 'Alph4dog!',
+      password: 'password',
+      repeatPassword: 'password'
+    };
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser);
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Username may only contain letters or numbers.');
+  });
+
+  it('should only accept passwords with letters and numbers', async () => {
+    let testUser = {
+      username: 'alphadog',
+      password: 'password!',
+      repeatPassword: 'password!'
+    };
+    const res = await request(app)
+      .post('/api/users')
+      .send(testUser);
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Password may only contain letters or numbers.');
   });
 });
 
