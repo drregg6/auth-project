@@ -7,8 +7,13 @@ const router = express.Router();
 
 // Get all Users
 router.get('/', async (req, res) => {
-  const users = await User.find();
-  res.status(200).json({ users });
+  try {
+    const users = await User.find();
+    res.status(200).json({ users });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
 });
 
 
@@ -20,7 +25,7 @@ router.get('/:username', async (req, res) => {
   if (!user) return res.status(401).json({ msg: 'User does not exist' });
 
   try {
-    res.send(user);
+    res.status(200).json({ user });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ msg: 'Server error' });
