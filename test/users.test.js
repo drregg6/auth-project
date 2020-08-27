@@ -3,14 +3,23 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../config/app');
 
-// Populate database with users
-const user1 = new User({ username: 'user1', password: 'password' });
-const user2 = new User({ username: 'user2', password: 'password' });
 
 // Initialize database
 beforeEach(async () => {
-  await User(user1).save();
-  await User(user2).save();
+  // Populate database with users
+  const user1 = new User({
+    username: 'user1',
+    password: 'password',
+    repeatPassword: 'password'
+  });
+  const user2 = new User({
+    username: 'user2',
+    password: 'password',
+    repeatPassword: 'password'
+  });
+
+  await user1.save();
+  await user2.save();
 });
 
 // Drop database after each test
@@ -26,11 +35,40 @@ describe('CREATE USER', () => {
     const response = await request(app).post('/api/users')
       .send({
         username: 'user',
-        password: 'password'
+        password: 'password',
+        repeatPassword: 'password'
       });
     let users = await User.find();
     expect(response.status).toBe(201);
     expect(users.length).toBe(3);
+  });
+
+  it('should not create a user if the passwords do not match', async () => {
+    expect(true);
+  });
+
+  it('should return a jwt token', async () => {
+    expect(true);
+  });
+
+  it('should crypt the password', async () => {
+    expect(true);
+  });
+
+  it('should not be able to create a user with duplicate usernames', async () => {
+    expect(true);
+  });
+
+  it('should not create a user if the password is not at least 8 characters', async () => {
+    expect(true);
+  });
+
+  it('should not create a user if the username is not at least 6 characters', async () => {
+    expect(true);
+  });
+
+  it('should only accept usernames and passwords with letters and numbers', async () => {
+    expect(true);
   });
 });
 
@@ -44,18 +82,25 @@ describe('READ USER', () => {
     expect(response.status).toEqual(200);
     expect(response.body).toHaveProperty('users');
   });
+
+  it('should not get a user if user specified is not in the database', async () => {
+    expect(true);
+  });
+
+  it('should get a user if specified user is in the database', async () => {
+    expect(true);
+  });
 });
 
 
 
 // Update User
 describe('UPDATE USER', () => {
-  console.log(user1.password);
 
   it('should fail if passwords do not match', async () => {
     let testUser = {
-      username: user1.username,
-      password: user1.password,
+      username: 'user1',
+      password: 'password',
       newPassword: 'newPassword',
       repeatPassword: 'pasword'
     };
@@ -67,7 +112,7 @@ describe('UPDATE USER', () => {
     expect(body.msg).toBe('Passwords do not match.');
   });
 
-  it('should contain the user being updated', async () => {
+  it('should find the updating user in the database', async () => {
     let testUser = {
       username: 'newUser',
       password: 'password',
@@ -82,6 +127,10 @@ describe('UPDATE USER', () => {
     expect(body.msg).toBe('User not found.');
   });
 
+  it('should fail if the new password is the same as the old password', async () => {
+    expect(true);
+  });
+
   it('should update a user', async () => {
     let testUser = {
       username: 'user1',
@@ -93,16 +142,19 @@ describe('UPDATE USER', () => {
       .put('/api/users/update')
       .send(testUser);
     const { status, body } = res;
-    console.log(`user1's password is: ${user1.password}`);
     console.log(status);
+    expect(true);
   });
 });
 
 
 
-// Login user
-// describe('LOGIN', () => {
-//   it('should login a user', async () => {
-//     await request(app).post('/api/users/')
-//   });
-// });
+// Delete User
+describe('DELETE USER', () => {
+  it('should throw an error if the user is not found in the database', async () => {
+    expect(true);
+  });
+  it('should return a list of users with the deleted user removed', async () => {
+    expect(true);
+  });
+});

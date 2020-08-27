@@ -89,6 +89,7 @@ router.post('/', async (req, res) => {
 router.put('/update', async (req, res) => {
   let { username, password, newPassword, repeatPassword } = req.body;
   if (newPassword !== repeatPassword) return res.status(401).json({ msg: 'Passwords do not match.' });
+  console.log(`plaintext: ${password}`)
 
   try {
     let user = await User.findOne({ username });
@@ -131,7 +132,7 @@ router.delete('/:username', async (req, res) => {
   try {
     await User.deleteOne({ username });
     const users = await User.find();
-    res.send(users);
+    res.status(200).json({ users });
   } catch (error) {
     console.error(error.message);
     res.send('Server error');
