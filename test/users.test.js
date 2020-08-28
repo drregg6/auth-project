@@ -6,6 +6,11 @@ const app = require('../config/app');
 
 // Initialize database
 beforeEach(async () => {
+  await mongoose.connection.collections.users.drop();
+
+  // The problem here --
+  // It's not going through the API so it is not being hashed
+
   // Populate database with users
   const user1 = new User({
     username: 'user1',
@@ -23,9 +28,9 @@ beforeEach(async () => {
 });
 
 // Drop database after each test
-afterEach(async () => {
-  await mongoose.connection.collections.users.drop();
-});
+// afterEach(async () => {
+  
+// });
 
 
 
@@ -33,8 +38,8 @@ afterEach(async () => {
 describe('CREATE USER', () => {
   let passingUser = {
     username: 'user',
-    password: 'password',
-    repeatPassword: 'password'
+    password: 'password1',
+    repeatPassword: 'password1'
   };
   it('should create a user', async () => {
     const response = await request(app)
@@ -159,11 +164,19 @@ describe('READ USER', () => {
   });
 
   it('should not get a user if user specified is not in the database', async () => {
-    expect(true);
+    const res = await request(app)
+      .get('/api/users/testuser123')
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('User does not exist.')
   });
 
   it('should get a user if specified user is in the database', async () => {
-    expect(true);
+    const res = await request(app)
+      .get('/api/users/user1');
+    let { status, body } = res;
+    expect(status).toBe(200);
+    expect(body).toHaveProperty('user');
   });
 });
 
@@ -187,7 +200,7 @@ describe('UPDATE USER', () => {
     expect(body.msg).toBe('Passwords do not match.');
   });
 
-  it('should find the updating user in the database', async () => {
+  it('should fail if user is not found in the database', async () => {
     let testUser = {
       username: 'newUser',
       password: 'password',
@@ -202,8 +215,34 @@ describe('UPDATE USER', () => {
     expect(body.msg).toBe('User not found.');
   });
 
+  it('should fail if the user password is incorrect', async () => {
+    let testUser = {
+      username: 'user1',
+      password: 'pasword',
+      newPassword: 'password1',
+      repeatPassword: 'password1'
+    };
+    const res = await request(app)
+      .put('/api/users/update')
+      .send(testUser);
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Incorrect password.')
+  });
+
   it('should fail if the new password is the same as the old password', async () => {
-    expect(true);
+    let testUser = {
+      username: 'user1',
+      password: 'password',
+      newPassword: 'password',
+      repeatPassword: 'password'
+    };
+    const res = await request(app)
+      .put('/api/users/update')
+      .send(testUser);
+    let { status, body } = res;
+    expect(status).toBe(401);
+    expect(body.msg).toBe('Password cannot be the same as old password.');
   });
 
   it('should update a user', async () => {
@@ -217,8 +256,8 @@ describe('UPDATE USER', () => {
       .put('/api/users/update')
       .send(testUser);
     const { status, body } = res;
-    console.log(status);
-    expect(true);
+    expect(status).toBe(200);
+    expect(body.msg).toBe('Password updated.');
   });
 });
 
@@ -227,9 +266,17 @@ describe('UPDATE USER', () => {
 // Delete User
 describe('DELETE USER', () => {
   it('should throw an error if the user is not found in the database', async () => {
-    expect(true);
+    const res = await request(app)
+      .delete('/api/users/testUser');
+    expect(res.status).toBe(401);
+    expect(res.body.msg).toBe('No user found.');
   });
+
   it('should return a list of users with the deleted user removed', async () => {
-    expect(true);
+    const res = await request(app)
+      .delete('/api/users/user1');
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty('users');
+    expect(res.body.users.length).toBe(1);
   });
 });

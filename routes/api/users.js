@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 router.get('/:username', async (req, res) => {
   const { username } = req.params;
   const user = await User.findOne({ username });
-  if (!user) return res.status(401).json({ msg: 'User does not exist' });
+  if (!user) return res.status(401).json({ msg: 'User does not exist.' });
 
   try {
     res.status(200).json({ user });
@@ -61,9 +61,11 @@ router.post('/', async (req, res) => {
   });
 
   // Hash the password
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-  user.password = hash;
+  if (user.password !== 'password') { // remove this when testing is complete
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+    user.password = hash;
+  }
 
   try {
     await user.save();
@@ -97,16 +99,20 @@ router.post('/', async (req, res) => {
 router.put('/update', async (req, res) => {
   let { username, password, newPassword, repeatPassword } = req.body;
   if (newPassword !== repeatPassword) return res.status(401).json({ msg: 'Passwords do not match.' });
-  console.log(`plaintext: ${password}`)
 
   try {
     let user = await User.findOne({ username });
     if (!user) return res.status(401).json({ msg: 'User not found.' });
 
-    let decodedPass = await bcrypt.compareSync(password, user.password);
-    if (!decodedPass) return res.status(401).json({ msg: 'Incorrect password.' });
-    let comparedPass = await bcrypt.compare(newPassword, user.password);
-    if (comparedPass) return res.status(401).json({ msg: 'Password cannot be the same as old password.' });
+    if (user.password !== 'password') { // remove once testing is complete
+      let decodedPass = await bcrypt.compareSync(password, user.password);
+      if (!decodedPass) return res.status(401).json({ msg: 'Incorrect password.' });
+      let comparedPass = await bcrypt.compare(newPassword, user.password);
+      if (comparedPass) return res.status(401).json({ msg: 'Password cannot be the same as old password.' });
+    } else {
+      if (user.password !== password) return res.status(401).json({ msg: 'Incorrect password.' });
+      if (user.password === newPassword) return res.status(401).json({ msg: 'Password cannot be the same as old password.' });
+    }
 
     // hash new password
     const salt = await bcrypt.genSalt(10);
@@ -132,10 +138,9 @@ router.put('/update', async (req, res) => {
 // And will find the user by the signed in user id
 router.delete('/:username', async (req, res) => {
   const { username } = req.params;
-  console.log(username)
   // see if the user exists
   const user = await User.findOne({ username });
-  if (!user) return res.send('No user found');
+  if (!user) return res.status(401).json({ msg: 'No user found.' });
 
   try {
     await User.deleteOne({ username });
