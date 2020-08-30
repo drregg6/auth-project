@@ -10,6 +10,7 @@ connectDb();
 app.use(express.json({ extended: false }))
 
 // get routes
-app.use(`/api/users`, require(`../routes/api/users.js`));
+app.use(`/api/users`, require(`../routes/api/users`));
+app.use(`/api/auth`, require('../routes/api/auth'));
 
 module.exports = app;

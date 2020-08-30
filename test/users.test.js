@@ -27,11 +27,6 @@ beforeEach(async () => {
   await user2.save();
 });
 
-// Drop database after each test
-// afterEach(async () => {
-  
-// });
-
 
 
 // Create User
@@ -41,6 +36,7 @@ describe('CREATE USER', () => {
     password: 'password1',
     repeatPassword: 'password1'
   };
+
   it('should create a user', async () => {
     const response = await request(app)
       .post('/api/users')
@@ -92,7 +88,7 @@ describe('CREATE USER', () => {
       .send(testUser)
     let { status, body } = res;
     expect(status).toBe(401);
-    expect(body.msg).toBe('User already exists. Please login.')
+    expect(body.msg).toBe('Username already exists. Please login.')
   });
 
   it('should not create a user if the password is not at least 8 characters', async () => {

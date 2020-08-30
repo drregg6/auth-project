@@ -50,9 +50,7 @@ router.post('/', async (req, res) => {
   // Check if the user already exists
   // findOne will return the user or null
   let user = await User.findOne({ username });
-  if (user) {
-    return res.status(401).json({ msg: 'User already exists. Please login.' });
-  }
+  if (user) return res.status(401).json({ msg: 'Username already exists. Please login.' });
   
   // Create a new user to be saved into the database
   user = new User({
