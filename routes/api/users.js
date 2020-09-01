@@ -1,4 +1,5 @@
 require('dotenv').config();
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -94,7 +95,7 @@ router.post('/', async (req, res) => {
 
 
 // Update a user
-router.put('/update', async (req, res) => {
+router.put('/update', auth, async (req, res) => {
   let { username, password, newPassword, repeatPassword } = req.body;
   if (newPassword !== repeatPassword) return res.status(401).json({ msg: 'Passwords do not match.' });
 
@@ -134,7 +135,7 @@ router.put('/update', async (req, res) => {
 // Delete a user
 // In the future, this will be used with jwt token
 // And will find the user by the signed in user id
-router.delete('/:username', async (req, res) => {
+router.delete('/:username', auth, async (req, res) => {
   const { username } = req.params;
   // see if the user exists
   const user = await User.findOne({ username });
