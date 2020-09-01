@@ -4,8 +4,8 @@ const request = require('supertest');
 const app = require('../config/app');
 
 // Initialize database
-before(async () => {
-  await mongoose.connection.collections.user.drop();
+beforeEach(async () => {
+  await mongoose.connection.collections.users.drop();
 
   const user1 = new User({
     username: 'user1',
@@ -30,7 +30,7 @@ describe('USER LOGIN', () => {
       username: 'user1',
       password: 'mypassword'
     };
-    const res = request(app)
+    const res = await request(app)
       .post('/api/auth')
       .send(testUser)
     let { status, body } = res;
@@ -43,7 +43,7 @@ describe('USER LOGIN', () => {
       username: 'user12',
       password: 'password'
     };
-    const res = request(app)
+    const res = await request(app)
       .post('/api/auth')
       .send(testUser)
     let { status, body } = res;
@@ -56,7 +56,7 @@ describe('USER LOGIN', () => {
       username: 'user1',
       password: 'password'
     }
-    const res = request(app)
+    const res = await request(app)
       .post('/api/auth')
       .send(testUser)
     let { status, body } = res;

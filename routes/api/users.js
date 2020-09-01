@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
   const { username, password, repeatPassword } = req.body;
   const regTest = /[^0-9a-z]/i;
 
-  // Quick checks for form entry errors
+  // Checks for form entry errors
   if (password !== repeatPassword) return res.status(401).json({ msg: 'Passwords must match.' });
   if (username.length < 4) return res.status(401).json({ msg: 'Username must be at least 4 characters.' });
   if (password.length < 8) return res.status(401).json({ msg: 'Password must be at least 8 characters.' });

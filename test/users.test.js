@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../config/app');
 
-
 // Initialize database
 beforeEach(async () => {
   await mongoose.connection.collections.users.drop();
