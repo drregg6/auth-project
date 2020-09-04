@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 const Login = (props) => {
@@ -6,6 +7,7 @@ const Login = (props) => {
     username: '',
     password: ''
   });
+  const { username, password } = form;
 
   const handleChange = (ev) => {
     setForm({
@@ -16,7 +18,12 @@ const Login = (props) => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
+
     console.log(form);
+    setForm({
+      username: '',
+      password: ''
+    });
   }
 
   return (
@@ -29,6 +36,7 @@ const Login = (props) => {
             placeholder="Username"
             name="username"
             id="username"
+            value={username}
             onChange={(ev) => handleChange(ev)}
           />
         </div>
@@ -38,6 +46,7 @@ const Login = (props) => {
             placeholder="Password"
             name="password"
             id="password"
+            value={password}
             onChange={(ev) => handleChange(ev)}
           />
         </div>
@@ -45,6 +54,9 @@ const Login = (props) => {
           <input type="submit" value="Submit" />
         </div>
       </form>
+      <div className="small-message">
+        <small>Need an account? <Link to="/signup">Signup here.</Link></small>
+      </div>
     </div>
   )
 }
