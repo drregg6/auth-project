@@ -11,6 +11,8 @@ import Footer from './components/layout/Footer';
 
 import Index from './components/homepage/Index';
 import Users from './components/users/Users';
+import Login from './components/login/Login';
+import Signup from './components/signup/Signup';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Switch>
           <Route exact path='/' component={Index} />
           <Route exact path='/users' component={Users} />
+          <Route exact path ='/login' component={Login} />
+          <Route exact path ='/signup' component={Signup} />
         </Switch>
         <Footer />
       </div>
