@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const Nav = () => {
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth';
+
+const Nav = ({
+  auth: { isAuthenticated, user },
+  logout
+}) => {
   return (
     <nav>
       <ul>
@@ -18,13 +24,27 @@ const Nav = () => {
         <li>
           <Link to="/login">Login</Link>
         </li>
+        { isAuthenticated && (
+          <>
+            <li>Welcome</li>
+            <li><button onClick={() => logout()}>Logout</button></li>
+          </>
+        )}
       </ul>
     </nav>
   )
 }
 
-// Nav.propTypes = {
+Nav.propTypes = {
+  auth: PropTypes.object,
+  logout: PropTypes.func.isRequired
+}
 
-// }
+const mapStateToProps = state => ({
+  auth: state.auth
+})
 
-export default Nav;
+export default connect(
+  mapStateToProps,
+  { logout }
+)(Nav);
