@@ -9,9 +9,9 @@ const router = express.Router();
 // Get logged in users id
 router.get('/', auth, async (req, res) => {
   try {
+    console.log(req.user)
     const user = await User.findById(req.user.id).select('-password');
     console.log(user)
-    if (!user) return res.status(400).json({ msg: 'User not signed in.' });
     return res.status(200).json(user);
   } catch (error) {
     if (error) {
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
     jwt.sign(
       payload,
       process.env.JWT_SECRET,
-      { expiresIn: '2 days' },
+      { expiresIn: 36000 },
       (error, token) => {
         if (error) {
           console.error(error.message);
