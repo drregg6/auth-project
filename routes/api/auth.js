@@ -3,12 +3,15 @@ const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 
 // Get logged in users id
 router.get('/', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password');
+    console.log(user)
+    if (!user) return res.status(400).json({ msg: 'User not signed in.' });
     return res.status(200).json(user);
   } catch (error) {
     if (error) {
@@ -24,14 +27,18 @@ router.post('/', async (req, res) => {
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
-    if (user.password !== password) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
+    // if (user.password !== password) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
 
+    console.log(user);
     // Get user jwt
     const payload = {
       user: {
         id: user.id
       }
     };
+    console.log(payload)
 
     jwt.sign(
       payload,

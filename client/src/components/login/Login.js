@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-const Login = (props) => {
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/auth';
+
+const Login = ({
+  loginUser,
+  auth: { isLoading, isAuthenticated }
+}) => {
   const [ form, setForm ] = useState({
     username: '',
     password: ''
@@ -20,6 +26,7 @@ const Login = (props) => {
     ev.preventDefault();
 
     console.log(form);
+    loginUser(form);
     setForm({
       username: '',
       password: ''
@@ -61,8 +68,16 @@ const Login = (props) => {
   )
 }
 
-// Login.propTypes = {
+Login.propTypes = {
+  auth: PropTypes.object,
+  loginUser: PropTypes.func.isRequired
+}
 
-// }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default Login;
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);

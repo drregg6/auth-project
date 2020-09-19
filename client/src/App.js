@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -14,7 +14,18 @@ import Users from './components/users/Users';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
 
-function App() {
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
+import store from './store';
+
+const App = () => {
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+    console.log('Say hey')
+    store.dispatch(loadUser());
+  }, []);
   return (
     <Router>
       <div className="App">
