@@ -15,11 +15,13 @@ import {
 
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 import Index from './components/homepage/Index';
 import Users from './components/users/Users';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
+import Private from './components/private/Private';
 
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
@@ -42,6 +44,7 @@ const App = () => {
           <Route exact path='/users' component={Users} />
           <Route exact path ='/login' component={Login} />
           <Route exact path ='/signup' component={Signup} />
+          <PrivateRoute exact path='/private' component={Private} />
         </Switch>
         <Footer />
       </div>
