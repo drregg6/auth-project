@@ -26,7 +26,7 @@ const Nav = ({
         </li>
         { isAuthenticated && (
           <>
-            <li>Welcome</li>
+            <li>Welcome { user && user.username }</li>
             <li><button onClick={() => logout()}>Logout</button></li>
           </>
         )}

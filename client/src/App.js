@@ -1,3 +1,10 @@
+/*
+
+Login / Logout complete
+Need to save user information
+
+*/
+
 import React, { useEffect } from 'react';
 import './App.css';
 import {
