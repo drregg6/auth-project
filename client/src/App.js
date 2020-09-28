@@ -5,6 +5,7 @@ Need to save user information
 
 */
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
 import './App.css';
 import {

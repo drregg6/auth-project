@@ -1,1 +1,10 @@
 /* Global styles */
+
+.my-nav {
+  padding: .5rem 1rem;
+  display: block;
+}
+.my-nav-btn {
+  padding: .25rem 1rem;
+  display: block;
+}

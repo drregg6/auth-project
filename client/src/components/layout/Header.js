@@ -1,15 +1,12 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-import Nav from './Nav';
+import AppNav from './AppNav';
 
 const Header = () => {
   return (
     <header>
-      <Nav />
-      <p>
-        This is the header.
-      </p>
+      <AppNav />
     </header>
   )
 }
