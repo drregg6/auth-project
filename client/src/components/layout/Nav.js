@@ -24,6 +24,9 @@ const Nav = ({
         <li>
           <Link to="/login">Login</Link>
         </li>
+        <li>
+          <Link to="/private">Private</Link>
+        </li>
         { isAuthenticated && (
           <>
             <li>Welcome { user && user.username }</li>
