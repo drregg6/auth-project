@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Signup = props => {
+import { connect } from 'react-redux';
+
+const Signup = ({
+  auth: { isAuthenticated }
+}) => {
   const [ form, setForm ] = useState({
     username: '',
     password: '',
@@ -27,6 +32,10 @@ const Signup = props => {
       password: '',
       repeatPassword: ''
     });
+  }
+
+  if (isAuthenticated) {
+    return <Redirect to='/' />
   }
 
   return (
@@ -74,8 +83,15 @@ const Signup = props => {
   )
 }
 
-// Signup.propTypes = {
+Signup.propTypes = {
+  auth: PropTypes.object
+}
 
-// }
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
-export default Signup;
+export default connect(
+  mapStateToProps,
+  null
+)(Signup);

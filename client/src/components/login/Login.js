@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
@@ -9,6 +10,7 @@ const Login = ({
   loginUser,
   auth: { isLoading, isAuthenticated }
 }) => {
+
   const [ form, setForm ] = useState({
     username: '',
     password: ''
@@ -31,6 +33,10 @@ const Login = ({
       username: '',
       password: ''
     });
+  }
+  
+  if (isAuthenticated) {
+    return <Redirect to='/' />
   }
 
   return (
