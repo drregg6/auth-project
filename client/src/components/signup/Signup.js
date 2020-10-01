@@ -4,9 +4,11 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import { addUser } from '../../actions/user';
 
 const Signup = ({
-  auth: { isAuthenticated }
+  auth: { isAuthenticated },
+  addUser
 }) => {
   const [ form, setForm ] = useState({
     username: '',
@@ -26,7 +28,7 @@ const Signup = ({
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
-    console.log(form);
+    addUser(form);
     setForm({
       username: '',
       password: '',
@@ -40,7 +42,7 @@ const Signup = ({
 
   return (
     <div>
-      <h1>Signup</h1>
+      <h1>Sign up</h1>
       <form onSubmit={(ev) => handleSubmit(ev)}>
         <div className="form-group">
           <input
@@ -93,5 +95,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  null
+  { addUser }
 )(Signup);

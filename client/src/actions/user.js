@@ -1,5 +1,6 @@
 import {
-  GET_USERS
+  GET_USERS,
+  ADD_USER
 } from './types';
 import axios from 'axios';
 
@@ -10,6 +11,24 @@ export const fetchUsers = () => async dispatch => {
       type: GET_USERS,
       payload: res.data
     })
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const addUser = ({ username, password, repeatPassword }) => async dispatch => {
+  const options = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  }
+  const body = JSON.stringify({ username, password, repeatPassword })
+  try {
+    const res = await axios.post(`/api/users/`, body, options);
+    dispatch({
+      type: ADD_USER,
+      payload: res.data
+    });
   } catch (error) {
     console.error(error);
   }
