@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { loginUser } from '../../actions/auth';
 
 const Login = ({
   loginUser,
-  auth: { isLoading, isAuthenticated }
+  auth: { isAuthenticated }
 }) => {
 
   const [ form, setForm ] = useState({

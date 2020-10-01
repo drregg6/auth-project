@@ -1,7 +1,9 @@
 /*
 
-Login / Logout complete
-Need to save user information
+PrivateRoute is not working again
+Detects isAuthenticated
+    Redirects to --> Login
+    Redirects to --> Homepage
 
 */
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,7 +34,6 @@ const App = () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-    console.log('Say hey')
     store.dispatch(loadUser());
   }, []);
   return (
