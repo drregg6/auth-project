@@ -24,7 +24,8 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
   }
   const body = JSON.stringify({ username, password, repeatPassword })
   try {
-    const res = await axios.post(`/api/users/`, body, options);
+    await axios.post(`/api/users/`, body, options);
+    const res = axios.get(`/api/users`);
     dispatch({
       type: ADD_USER,
       payload: res.data
