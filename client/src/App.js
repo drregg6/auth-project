@@ -24,6 +24,7 @@ import Users from './components/users/Users';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
 import Private from './components/private/Private';
+import Profile from './components/profile/Profile';
 
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
@@ -46,6 +47,7 @@ const App = () => {
           <Route exact path ='/login' component={Login} />
           <Route exact path ='/signup' component={Signup} />
           <PrivateRoute exact path='/private' component={Private} />
+          <PrivateRoute exact path='/profile' component={Profile} />
         </Switch>
         <Footer />
       </div>

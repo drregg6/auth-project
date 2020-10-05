@@ -1,10 +1,13 @@
 import {
   GET_USERS,
+  GET_USER,
+  CLEAR_USER,
   ADD_USER
 } from '../actions/types';
 
 const initialState = {
   users: [],
+  user: null,
   isLoading: true
 }
 
@@ -17,11 +20,23 @@ export default function(state = initialState, action) {
         users: [...payload],
         isLoading: false
       };
+    case GET_USER:
+      return {
+        ...state,
+        isLoading: false,
+        user: payload
+      }
     case ADD_USER:
       return {
         ...state,
         isLoading: false,
         users: [...state.users, payload]
+      }
+    case CLEAR_USER:
+      return {
+        ...state,
+        isLoading: false,
+        user: null
       }
     default:
       return state;

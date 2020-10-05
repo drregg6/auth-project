@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 
 const AppNav = ({
-  auth: { isAuthenticated, user },
+  auth: { isAuthenticated, currentUser },
   logout
 }) => {
   return (
@@ -29,9 +29,12 @@ const AppNav = ({
       <Nav.Item as="li">
         <Nav.Link href="/private">Private</Nav.Link>
       </Nav.Item>
+      <Nav.Item as="li">
+        <Nav.Link href="/profile">Profile</Nav.Link>
+      </Nav.Item>
       { isAuthenticated && (
         <>
-          <li className="nav-link my-nav">Welcome { user && user.username }</li>
+          <li className="nav-link my-nav">Welcome { currentUser && currentUser.username }</li>
           <li className="my-nav-btn"><Button variant="outline-danger" size="sm" onClick={() => logout()}>Logout</Button></li>
         </>
       )}

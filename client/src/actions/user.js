@@ -1,5 +1,7 @@
 import {
   GET_USERS,
+  GET_USER,
+  CLEAR_USER,
   ADD_USER
 } from './types';
 import axios from 'axios';
@@ -11,6 +13,20 @@ export const fetchUsers = () => async dispatch => {
       type: GET_USERS,
       payload: res.data
     })
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const getUser = (username) => async dispatch => {
+  try {
+    const res = await axios.get(`/api/users/${username}`);
+    console.log(res.data.user);
+    dispatch({ type: CLEAR_USER });
+    dispatch({
+      type: GET_USER,
+      payload: res.data.user
+    });
   } catch (error) {
     console.error(error);
   }
