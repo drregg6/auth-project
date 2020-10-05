@@ -53,14 +53,16 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
 }
 
 export const deleteUser = (username) => async dispatch => {
-  try {
-    const res = await axios.delete(`/api/users/${username}`);
-    dispatch({ type: LOGOUT_USER });
-    dispatch({
-      type: DELETE_USER,
-      payload: res.data
-    });
-  } catch (error) {
-    console.error(error);
+  if (window.confirm('Are you sure? This can NOT be undone!')) {
+    try {
+      const res = await axios.delete(`/api/users/${username}`);
+      dispatch({ type: LOGOUT_USER });
+      dispatch({
+        type: DELETE_USER,
+        payload: res.data
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
