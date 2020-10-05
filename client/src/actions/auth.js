@@ -1,7 +1,6 @@
 import {
   USER_LOADED,
   LOGIN_SUCCESS,
-  LOGIN_FAIL,
   LOGOUT_USER
 } from './types';
 import axios from 'axios';

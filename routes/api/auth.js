@@ -30,7 +30,6 @@ router.post('/', async (req, res) => {
     if (!isMatch) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
     // if (user.password !== password) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
 
-    console.log(user);
     // Get user jwt
     const payload = {
       user: {

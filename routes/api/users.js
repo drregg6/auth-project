@@ -144,7 +144,7 @@ router.delete('/:username', auth, async (req, res) => {
   try {
     await User.deleteOne({ username });
     const users = await User.find();
-    res.status(200).json({ users });
+    res.status(200).json( users );
   } catch (error) {
     console.error(error.message);
     res.send('Server error');

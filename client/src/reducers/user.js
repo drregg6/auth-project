@@ -2,7 +2,8 @@ import {
   GET_USERS,
   GET_USER,
   CLEAR_USER,
-  ADD_USER
+  ADD_USER,
+  DELETE_USER
 } from '../actions/types';
 
 const initialState = {
@@ -37,6 +38,13 @@ export default function(state = initialState, action) {
         ...state,
         isLoading: false,
         user: null
+      }
+    case DELETE_USER:
+      return {
+        ...state,
+        isLoading: false,
+        user: null,
+        users: [...payload]
       }
     default:
       return state;

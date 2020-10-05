@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import PasswordForm from './PasswordForm';
+
 import { connect } from 'react-redux';
-import { getUser } from '../../actions/user';
+import {
+  getUser,
+  deleteUser
+} from '../../actions/user';
 
 const Profile = ({
   getUser,
+  deleteUser,
   auth: { currentUser, isLoading },
   user: { user }
 }) => {
@@ -14,15 +20,25 @@ const Profile = ({
       getUser(currentUser.username);
     }
   }, [isLoading]);
+  let render = user !== null && (
+    <>
+      <h1>{ user !== null && user.username } Profile</h1>
+      <PasswordForm
+        currentPassword={user.password}
+      />
+      <button onClick={() => deleteUser(user.username)}>Delete Account</button>
+    </>
+  )
   return (
     <div>
-      <h1>Profile for { user !== null && user.username }</h1>
+      { render }
     </div>
   )
 }
 
 Profile.propTypes = {
   getUser: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   auth: PropTypes.object,
   user: PropTypes.object
 };
@@ -34,5 +50,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getUser }
+  { getUser, deleteUser }
 )(Profile);
