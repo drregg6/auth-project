@@ -27,7 +27,6 @@ const Login = ({
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
-    console.log(form);
     loginUser(form);
     setForm({
       username: '',

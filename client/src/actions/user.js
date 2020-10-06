@@ -3,6 +3,7 @@ import {
   GET_USER,
   CLEAR_USER,
   ADD_USER,
+  UPDATE_USER,
   DELETE_USER,
   LOGOUT_USER
 } from './types';
@@ -45,6 +46,25 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
     const res = axios.get(`/api/users`);
     dispatch({
       type: ADD_USER,
+      payload: res.data
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const updateUser = ({ username, password, newPassword, repeatPassword }) => async dispatch => {
+  const options = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({ username, password, newPassword, repeatPassword });
+  try {
+    const res = await axios.put(`/api/users/update`, body, options);
+    dispatch({ type: LOGOUT_USER });
+    dispatch({
+      type: UPDATE_USER,
       payload: res.data
     });
   } catch (error) {

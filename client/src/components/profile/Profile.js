@@ -24,7 +24,7 @@ const Profile = ({
     <>
       <h1>{ user !== null && user.username } Profile</h1>
       <PasswordForm
-        currentPassword={user.password}
+        username={user.username}
       />
       <button onClick={() => deleteUser(user.username)}>Delete Account</button>
     </>
