@@ -3,6 +3,8 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
+import Main from '../layout/Main';
+
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/user';
 
@@ -30,9 +32,9 @@ const Users = ({
     </>
   )
   return (
-    <div>
+    <Main>
       { render }
-    </div>
+    </Main>
   )
 }
 

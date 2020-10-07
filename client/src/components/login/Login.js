@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
+import Main from '../layout/Main';
+
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
 
@@ -39,7 +41,7 @@ const Login = ({
   }
 
   return (
-    <div>
+    <Main>
       <h1>Login</h1>
       <form onSubmit={(ev) => handleSubmit(ev)}>
         <div className="form-group">
@@ -69,7 +71,7 @@ const Login = ({
       <div className="small-message">
         <small>Need an account? <Link to="/signup">Signup here.</Link></small>
       </div>
-    </div>
+    </Main>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import Main from '../layout/Main';
 import PasswordForm from './PasswordForm';
 
 import { connect } from 'react-redux';
@@ -30,9 +31,9 @@ const Profile = ({
     </>
   )
   return (
-    <div>
+    <Main>
       { render }
-    </div>
+    </Main>
   )
 }
 

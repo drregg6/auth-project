@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/form';
+import Button from 'react-bootstrap/button';
+
+import Main from '../layout/Main';
 
 import { connect } from 'react-redux';
 import { addUser } from '../../actions/user';
@@ -41,11 +45,11 @@ const Signup = ({
   }
 
   return (
-    <div>
+    <Main>
       <h1>Sign up</h1>
       <form onSubmit={(ev) => handleSubmit(ev)}>
-        <div className="form-group">
-          <input
+        <Form.Group>
+          <Form.Control
             type="text"
             placeholder="Username"
             name="username"
@@ -53,9 +57,9 @@ const Signup = ({
             value={username}
             onChange={(ev) => handleChange(ev)}
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
             type="password"
             placeholder="Password"
             name="password"
@@ -63,9 +67,9 @@ const Signup = ({
             value={password}
             onChange={(ev) => handleChange(ev)}
           />
-        </div>
-        <div className="form-group">
-          <input
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
             type="password"
             placeholder="Repeat Password"
             name="repeatPassword"
@@ -73,15 +77,11 @@ const Signup = ({
             value={repeatPassword}
             onChange={(ev) => handleChange(ev)}
           />
-        </div>
-        <div className="form-group">
-          <input type="submit" value="Submit" />
-        </div>
+        </Form.Group>
+        <Button variant="outline-primary" type="submit">Submit</Button>
+        <Form.Text>Already have an account? Login here.</Form.Text>
       </form>
-      <div className="small-message">
-        <small>Already have an account? <Link to="/login">Login here.</Link></small>
-      </div>
-    </div>
+    </Main>
   )
 }
 

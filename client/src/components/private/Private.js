@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Main from '../layout/Main';
+
 const Private = props => {
   return (
-    <div>
+    <Main>
       <h1>This is a secret area</h1>
-    </div>
+    </Main>
   )
 }
 

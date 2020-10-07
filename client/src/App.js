@@ -39,16 +39,18 @@ const App = () => {
   }, []);
   return (
     <Router>
-      <div className="App">
-        <Header />
-        <Switch>
-          <Route exact path='/' component={Index} />
-          <Route exact path='/users' component={Users} />
-          <Route exact path ='/login' component={Login} />
-          <Route exact path ='/signup' component={Signup} />
-          <PrivateRoute exact path='/private' component={Private} />
-          <PrivateRoute exact path='/profile' component={Profile} />
-        </Switch>
+      <div className="my-container">
+        <div className="content">
+          <Header />
+            <Switch>
+              <Route exact path='/' component={Index} />
+              <Route exact path='/users' component={Users} />
+              <Route exact path ='/login' component={Login} />
+              <Route exact path ='/signup' component={Signup} />
+              <PrivateRoute exact path='/private' component={Private} />
+              <PrivateRoute exact path='/profile' component={Profile} />
+            </Switch>
+        </div>
         <Footer />
       </div>
     </Router>
