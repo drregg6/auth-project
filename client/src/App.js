@@ -1,11 +1,3 @@
-/*
-
-PrivateRoute is not working again
-Detects isAuthenticated
-    Redirects to --> Login
-    Redirects to --> Homepage
-
-*/
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
 import './App.css';
@@ -43,7 +35,6 @@ const App = ({ notification: { msg } }) => {
     }
     store.dispatch(loadUser());
   }, []);
-  console.log(msg);
   if (msg !== null) {
     toast.info(msg);
   }
