@@ -21,7 +21,7 @@ const AppNav = ({
         <Nav.Link href="/users">Users</Nav.Link>
       </Nav.Item>
       <Nav.Item as="li">
-        <Nav.Link href="/signup">Signup</Nav.Link>
+        <Nav.Link href="/signup">Sign up</Nav.Link>
       </Nav.Item>
       <Nav.Item as="li">
         <Nav.Link href="/login">Login</Nav.Link>

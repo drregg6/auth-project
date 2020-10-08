@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/form';
 import Button from 'react-bootstrap/button';
 
 import Main from '../layout/Main';
+import MyForm from '../layout/MyForm';
 
 import { connect } from 'react-redux';
 import { addUser } from '../../actions/user';
@@ -46,41 +47,47 @@ const Signup = ({
 
   return (
     <Main>
-      <h1>Sign up</h1>
-      <form onSubmit={(ev) => handleSubmit(ev)}>
-        <Form.Group>
-          <Form.Control
-            type="text"
-            placeholder="Username"
-            name="username"
-            id="username"
-            value={username}
-            onChange={(ev) => handleChange(ev)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(ev) => handleChange(ev)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Control
-            type="password"
-            placeholder="Repeat Password"
-            name="repeatPassword"
-            id="repeatPassword"
-            value={repeatPassword}
-            onChange={(ev) => handleChange(ev)}
-          />
-        </Form.Group>
-        <Button variant="outline-primary" type="submit">Submit</Button>
-        <Form.Text>Already have an account? Login here.</Form.Text>
-      </form>
+      <MyForm>
+        <h1>Sign up</h1>
+        <form onSubmit={(ev) => handleSubmit(ev)}>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              name="username"
+              id="username"
+              value={username}
+              onChange={(ev) => handleChange(ev)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(ev) => handleChange(ev)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              type="password"
+              placeholder="Repeat Password"
+              name="repeatPassword"
+              id="repeatPassword"
+              value={repeatPassword}
+              onChange={(ev) => handleChange(ev)}
+            />
+          </Form.Group>
+          <div className="my-form-group">
+            <Button variant="outline-primary" type="submit">Submit</Button>
+          </div>
+          <Form.Text>
+            Already have an account? <Link to="/login">Login here.</Link>
+          </Form.Text>
+        </form>
+      </MyForm>
     </Main>
   )
 }

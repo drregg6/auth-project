@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import Form from 'react-bootstrap/form';
+import Button from 'react-bootstrap/button';
 
 import Main from '../layout/Main';
+import MyForm from '../layout/MyForm';
 
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
@@ -42,35 +45,35 @@ const Login = ({
 
   return (
     <Main>
-      <h1>Login</h1>
-      <form onSubmit={(ev) => handleSubmit(ev)}>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            id="username"
-            value={username}
-            onChange={(ev) => handleChange(ev)}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(ev) => handleChange(ev)}
-          />
-        </div>
-        <div className="form-group">
-          <input type="submit" value="Submit" />
-        </div>
-      </form>
-      <div className="small-message">
-        <small>Need an account? <Link to="/signup">Signup here.</Link></small>
-      </div>
+      <MyForm>
+        <h1>Login</h1>
+        <form onSubmit={(ev) => handleSubmit(ev)}>
+          <Form.Group>
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              name="username"
+              id="username"
+              value={username}
+              onChange={(ev) => handleChange(ev)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              value={password}
+              onChange={(ev) => handleChange(ev)}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Button variant="outline-primary" type="submit">Submit</Button>
+          </Form.Group>
+          <Form.Text>Need an account? <Link to="/signup">Sign up here.</Link></Form.Text>
+        </form>
+      </MyForm>
     </Main>
   )
 }
