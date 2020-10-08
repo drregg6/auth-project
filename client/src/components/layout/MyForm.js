@@ -1,8 +1,8 @@
 import React from 'react';
 
-const MyForm = ({ children }) => {
+const MyForm = ({ children, inverse }) => {
   return (
-    <div className="my-form">
+    <div className={`my-form ${inverse && 'inverse-form'}`}>
       { children }
     </div>
   )

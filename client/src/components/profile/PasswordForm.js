@@ -34,7 +34,7 @@ const PasswordForm = ({ username, updateUser }) => {
 
   return (
     <div>
-      <MyForm>
+      <MyForm inverse>
         <h1>Change Password</h1>
         <form onSubmit={(ev) => handleSubmit(ev)}>
           <Form.Group>
@@ -64,7 +64,9 @@ const PasswordForm = ({ username, updateUser }) => {
               onChange={(ev) => handleChange(ev)}
             />
           </Form.Group>
-          <Button variant="outline-primary" type="submit">Submit</Button>
+          <Form.Group className="button-group">
+            <Button type="submit">Submit</Button>
+          </Form.Group>
         </form>
       </MyForm>
     </div>

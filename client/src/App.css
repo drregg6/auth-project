@@ -1,13 +1,13 @@
 /* Global styles */
 header {
-  background: rgba(255,255,255,0.5);
+  /* background: rgba(255,255,255,0.5); */
 }
 header ul.nav {
   padding: .5rem;
 }
 footer {
   padding: 1rem 10px;
-  background: rgba(0,0,0,0.25);
+  /* background: rgba(0,0,0,0.25); */
 }
 
 /* Custom styles */
@@ -17,16 +17,17 @@ footer {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  
-  background-color: #25005e;
-  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%23bc92ff' fill-opacity='0.42'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .content {
   flex: 2 1 auto;
 }
 .main {
-  margin: 5rem auto;
-  max-width: 960px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.main-background {
+  background-color: #25005e;
+  background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%23bc92ff' fill-opacity='0.42'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .my-nav {
@@ -62,4 +63,12 @@ footer {
 }
 .form-text {
   text-align: center;
+}
+.inverse-form {
+  background: rgba(255,255,255,0.75);
+  color: #000;
+  border: 2px solid #000;
+}
+.inverse-form h1 {
+  font-size: 1.8rem;
 }

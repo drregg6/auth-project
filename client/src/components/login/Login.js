@@ -44,7 +44,7 @@ const Login = ({
   }
 
   return (
-    <Main>
+    <Main mainBackground>
       <MyForm>
         <h1>Login</h1>
         <form onSubmit={(ev) => handleSubmit(ev)}>
