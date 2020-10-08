@@ -80,9 +80,9 @@ const Signup = ({
               onChange={(ev) => handleChange(ev)}
             />
           </Form.Group>
-          <div className="my-form-group">
-            <Button variant="outline-primary" type="submit">Submit</Button>
-          </div>
+          <Form.Group className="button-group">
+            <Button type="submit">Submit</Button>
+          </Form.Group>
           <Form.Text>
             Already have an account? <Link to="/login">Login here.</Link>
           </Form.Text>

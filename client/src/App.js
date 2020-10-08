@@ -15,6 +15,7 @@ import {
   Route
 } from 'react-router-dom';
 
+import MyContainer from './components/layout/MyContainer';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -39,7 +40,7 @@ const App = () => {
   }, []);
   return (
     <Router>
-      <div className="my-container">
+      <MyContainer>
         <div className="content">
           <Header />
             <Switch>
@@ -52,7 +53,7 @@ const App = () => {
             </Switch>
         </div>
         <Footer />
-      </div>
+      </MyContainer>
     </Router>
   );
 }
