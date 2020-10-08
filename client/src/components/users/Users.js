@@ -19,20 +19,21 @@ const Users = ({
   const render = isLoading ? (
     'Still loading'
   ) : (
-    <>
+    <ol>
       {
-        users.map(user => {
+        users.map((user) => {
           return (
-            <div key={user.id}>
-              <h1>{user.username}</h1>
-            </div>
+            <li key={user.id}>
+              {user.username}
+            </li>
           )
         })
       }
-    </>
+    </ol>
   )
   return (
     <Main>
+      <h1 style={{ textAlign: 'left' }}>The Users</h1>
       { render }
     </Main>
   )
