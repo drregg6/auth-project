@@ -9,13 +9,15 @@ import {
 } from './types';
 import axios from 'axios';
 
+import { setAlert } from './notification';
+
 export const fetchUsers = () => async dispatch => {
   try {
     const res = await axios.get(`/api/users`);
     dispatch({
       type: GET_USERS,
       payload: res.data
-    })
+    });
   } catch (error) {
     console.error(error);
   }
@@ -48,7 +50,9 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
       type: ADD_USER,
       payload: res.data
     });
+    dispatch(setAlert('User created, please login.'));
   } catch (error) {
+    dispatch(setAlert(error.response.data.msg));
     console.error(error);
   }
 }
@@ -67,7 +71,9 @@ export const updateUser = ({ username, password, newPassword, repeatPassword }) 
       type: UPDATE_USER,
       payload: res.data
     });
+    dispatch(setAlert('User succesfully updated. Please login.'))
   } catch (error) {
+    dispatch(setAlert(error.response.data.msg));
     console.error(error);
   }
 }
@@ -81,7 +87,9 @@ export const deleteUser = (username) => async dispatch => {
         type: DELETE_USER,
         payload: res.data
       });
+      dispatch(setAlert('User successfully deleted. Sorry to see you go.'))
     } catch (error) {
+      dispatch(setAlert(error.response.data.msg));
       console.error(error);
     }
   }

@@ -6,7 +6,7 @@ import {
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
-
+import { setAlert } from './notification';
 
 export const loadUser = () => async dispatch => {
   if (localStorage.token) {
@@ -39,8 +39,10 @@ export const loginUser = ({username, password}) => async dispatch => {
       type: LOGIN_SUCCESS,
       payload: res.data
     });
+    dispatch(setAlert('Successfully logged in. Welcome!'));
     dispatch(loadUser());
   } catch (error) {
+    dispatch(setAlert(error.response.data.msg));
     console.error(error.response.data);
   }
 }
@@ -49,4 +51,5 @@ export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT_USER
   });
+  dispatch(setAlert('Successfully logged out. See ya soon!'));
 }

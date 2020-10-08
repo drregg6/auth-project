@@ -27,21 +27,38 @@ import Signup from './components/signup/Signup';
 import Private from './components/private/Private';
 import Profile from './components/profile/Profile';
 
+import { connect } from 'react-redux';
+
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import store from './store';
 
-const App = () => {
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const App = ({ notification: { msg } }) => {
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
     store.dispatch(loadUser());
   }, []);
+  console.log(msg);
+  if (msg !== null) {
+    toast.info(msg);
+  }
   return (
     <Router>
       <MyContainer>
         <div className="content">
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            closeOnClick
+            draggable={false}
+            pauseOnFocusLoss={false}
+            pauseOnHover={false}
+          />
           <Header />
             <Switch>
               <Route exact path='/' component={Index} />
@@ -58,4 +75,8 @@ const App = () => {
   );
 }
 
-export default App;
+const mapStateToProps = state => ({
+  notification: state.notification
+})
+
+export default connect( mapStateToProps )(App);
