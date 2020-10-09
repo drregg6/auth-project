@@ -21,21 +21,24 @@ const AppNav = ({
         <Nav.Link href="/users">Users</Nav.Link>
       </Nav.Item>
       <Nav.Item as="li">
-        <Nav.Link href="/signup">Sign up</Nav.Link>
-      </Nav.Item>
-      <Nav.Item as="li">
-        <Nav.Link href="/login">Login</Nav.Link>
-      </Nav.Item>
-      <Nav.Item as="li">
         <Nav.Link href="/private">Private</Nav.Link>
       </Nav.Item>
-      <Nav.Item as="li">
-        <Nav.Link href="/profile">Profile</Nav.Link>
-      </Nav.Item>
-      { isAuthenticated && (
+      { isAuthenticated ? (
         <>
+          <Nav.Item as="li">
+            <Nav.Link href="/profile">Profile</Nav.Link>
+          </Nav.Item>
           <li className="nav-link my-nav">Welcome { currentUser && currentUser.username }</li>
           <li className="my-nav-btn"><Button variant="outline-danger" size="sm" onClick={() => logout()}>Logout</Button></li>
+        </>
+      ) : (
+        <>
+          <Nav.Item as="li">
+            <Nav.Link href="/login">Login</Nav.Link>
+          </Nav.Item>
+          <Nav.Item as="li">
+            <Nav.Link href="/signup">Sign up</Nav.Link>
+          </Nav.Item>
         </>
       )}
     </Nav>

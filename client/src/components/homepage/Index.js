@@ -2,50 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import Background from '../../images/elena-mozhvilo-halloween.jpg';
-
 import { connect } from 'react-redux';
 
 const Index = ({
   auth: { isAuthenticated }
 }) => {
   return (
-    <div
-      style={{
-        width: '100vw',
-        background: `url(${Background})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '84vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
+    <div className="hero">
       <h1>Welcome to the Homepage</h1>
       <p>Check out our private pages</p>
       { !isAuthenticated ? (
-        <Link
-          to="/signup"
-          style={{
-            border: '2px double black',
-            padding: '7px 10px',
-            fontSize: '14px',
-            color: 'black'
-          }}
-        >Sign Up Here ►</Link>
+        <Link to="/signup">Sign Up Here ►</Link>
       ) : (
-        <p
-          style={{
-            border: '2px double black',
-            padding: '7px 10px',
-            fontSize: '14px',
-            color: 'black'
-          }}
-        >
-          Welcome!
-        </p>
+        <p className="welcome">Welcome!</p>
       )}
     </div>
   )
