@@ -2,8 +2,10 @@ import React, {
   useEffect
 } from 'react';
 import PropTypes from 'prop-types';
+import CardColumns from 'react-bootstrap/CardColumns';
 
 import Main from '../layout/Main';
+import User from './User';
 
 import { connect } from 'react-redux';
 import { fetchUsers } from '../../actions/user';
@@ -19,17 +21,11 @@ const Users = ({
   const render = isLoading ? (
     'Still loading'
   ) : (
-    <ol>
+    <CardColumns>
       {
-        users.map((user) => {
-          return (
-            <li key={user.id}>
-              {user.username}
-            </li>
-          )
-        })
+        users.map((user) => <User user={user} />)
       }
-    </ol>
+    </CardColumns>
   )
   return (
     <Main>

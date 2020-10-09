@@ -28,7 +28,8 @@ footer {
 }
 .main {
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 75px 0;
+  height: 100%;
 }
 .main-background {
   background-color: #25005e;
@@ -103,4 +104,9 @@ footer {
 }
 .inverse-form h1 {
   font-size: 1.8rem;
+}
+
+/* Bootstrap Override */
+.card-columns {
+  columns: 3;
 }
