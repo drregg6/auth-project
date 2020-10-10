@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/button';
+import Edit from '../../images/edit.png';
 
 import Main from '../layout/Main';
 import PasswordForm from './PasswordForm';
@@ -30,11 +31,9 @@ const Profile = ({
   useEffect(() => {
     if (currentUser !== null) {
       getUser(currentUser.username);
-    }
-    if (user !== null) {
       setUserInput({
-        username: user.username,
-        bio: user.bio
+        username: currentUser.username,
+        bio: currentUser.bio
       })
     }
   }, [isLoading]);
@@ -42,22 +41,33 @@ const Profile = ({
 
   const handleChange = ev => {
     setUserInput({
+      ...userInput,
       [ev.target.name]: ev.target.value
     });
   }
   const handleSubmit = ev => {
     ev.preventDefault();
+
+    toggleEditUsername(false);
+    toggleEditBio(false);
+
+    if (userInput.username === user.username &&
+      userInput.bio === user.bio) return;
+    
     updateUser(userInput);
+
     setUserInput({
       username: user.username,
       bio: user.bio
     });
   }
 
+  window.onClick(() => alert('Clicked'));
+
   let render = user !== null && (
     <>
       <h1 style={{ textAlign: 'center' }}>
-        <span onClick={() => toggleEditUsername(!displayEditUsername)}>EDIT</span>
+        Profile for{' '}
           {
             displayEditUsername ? (
               <form onSubmit={(ev) => handleSubmit(ev)}>
@@ -69,9 +79,35 @@ const Profile = ({
                 />
               </form>
             ) : (
-              username !== null && username 
-            )} Profile
+              user !== null && user.username 
+            )} { !displayEditUsername ? (
+              <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditUsername(!displayEditUsername)} />
+            ) : (
+              <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
+            )}
       </h1>
+      <div style={{ textAlign: 'center', margin: '0 auto' }}>
+        <h2>Bio</h2>
+        <p>
+          {
+            displayEditBio ? (
+              <form onSubmit={(ev) => handleSubmit(ev)}>
+                <input
+                  type="text"
+                  name="bio"
+                  value={bio}
+                  onChange={(ev) => handleChange(ev)}
+                />
+              </form>
+            ) : (
+              user !== null && user.bio
+          )} { !displayEditBio ? (
+            <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditBio(!displayEditBio)} />
+          ) : (
+            <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
+          )}
+        </p>
+      </div>
       <PasswordForm
         username={user.username}
       />
@@ -81,6 +117,7 @@ const Profile = ({
       </div>
     </>
   )
+  console.log(userInput);
   return (
     <Main>
       { render }

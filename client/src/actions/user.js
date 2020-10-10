@@ -66,6 +66,7 @@ export const updateUser = ({ username, bio }) => async dispatch => {
   };
   const body = JSON.stringify({ username, bio });
   try {
+    console.log(body);
     const res = await axios.put(`/api/users/update-user`, body, options);
     dispatch({
       type: UPDATE_USER,

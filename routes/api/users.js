@@ -62,11 +62,14 @@ router.post('/', async (req, res) => {
   });
 
   // Hash the password
-  if (user.password !== 'password') { // remove this when testing is complete
-    const salt = await bcrypt.genSalt(10);
-    const hash = await bcrypt.hash(password, salt);
-    user.password = hash;
-  }
+  // if (user.password !== 'password') { // remove this when testing is complete
+  //   const salt = await bcrypt.genSalt(10);
+  //   const hash = await bcrypt.hash(password, salt);
+  //   user.password = hash;
+  // }
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+  user.password = hash;
 
   try {
     await user.save();
@@ -150,12 +153,12 @@ router.put('/update-user', auth, async (req, res) => {
     let user = await User.findById( id );
     if (!user) return res.status(401).json({ msg: 'User not found.' });
     let otherUser = await User.findOne({ username: updatedUser.username });
-    if (otherUser) return res.status(401).json({ msg: 'Username already exists.' });
+    if (otherUser && otherUser.id !== req.user.id) return res.status(401).json({ msg: 'Username already exists.' });
 
     // updatedUser needs to add password
     updatedUser.password = user.password;
 
-    await User.findOneAndUpdate(
+    user = await User.findOneAndUpdate(
       { _id: id },
       { $set: updatedUser },
       { new: true }

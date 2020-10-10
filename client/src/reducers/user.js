@@ -39,7 +39,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        user: {...payload}
+        user: payload
       }
     case UPDATE_USER_PASSWORD:
     case CLEAR_USER:

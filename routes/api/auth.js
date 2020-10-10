@@ -9,7 +9,6 @@ const router = express.Router();
 // Get logged in users id
 router.get('/', auth, async (req, res) => {
   try {
-    console.log(req.user)
     const user = await User.findById(req.user.id).select('-password');
     return res.status(200).json(user);
   } catch (error) {
@@ -28,7 +27,6 @@ router.post('/', async (req, res) => {
     if (!user) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
-    // if (user.password !== password) return res.status(401).json({ msg: 'Incorrect credentials. Please try again.' });
 
     // Get user jwt
     const payload = {
@@ -36,7 +34,6 @@ router.post('/', async (req, res) => {
         id: user.id
       }
     };
-    console.log(payload)
 
     jwt.sign(
       payload,
