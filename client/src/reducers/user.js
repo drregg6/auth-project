@@ -4,6 +4,7 @@ import {
   CLEAR_USER,
   ADD_USER,
   UPDATE_USER,
+  UPDATE_USER_PASSWORD,
   DELETE_USER
 } from '../actions/types';
 
@@ -38,8 +39,9 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isLoading: false,
-        users: [...payload]
+        user: payload
       }
+    case UPDATE_USER_PASSWORD:
     case CLEAR_USER:
       return {
         ...state,

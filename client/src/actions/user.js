@@ -4,6 +4,7 @@ import {
   CLEAR_USER,
   ADD_USER,
   UPDATE_USER,
+  UPDATE_USER_PASSWORD,
   DELETE_USER,
   LOGOUT_USER
 } from './types';
@@ -88,10 +89,10 @@ export const updateUserPassword = ({ username, password, newPassword, repeatPass
     const res = await axios.put(`/api/users/update-password`, body, options);
     dispatch({ type: LOGOUT_USER });
     dispatch({
-      type: UPDATE_USER,
+      type: UPDATE_USER_PASSWORD,
       payload: res.data
     });
-    dispatch(setAlert('User succesfully updated. Please login.'))
+    dispatch(setAlert('User successfully updated. Please login.'))
   } catch (error) {
     dispatch(setAlert(error.response.data.msg));
     console.error(error);
@@ -107,7 +108,7 @@ export const deleteUser = (username) => async dispatch => {
         type: DELETE_USER,
         payload: res.data
       });
-      dispatch(setAlert('User successfully deleted. Sorry to see you go.'))
+      dispatch(setAlert('User deleted. Sorry to see you go.'))
     } catch (error) {
       dispatch(setAlert(error.response.data.msg));
       console.error(error);
