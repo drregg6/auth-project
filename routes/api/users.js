@@ -1,6 +1,7 @@
 require('dotenv').config();
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const bcrypt = require('bcryptjs');
@@ -38,7 +39,7 @@ router.get('/:username', async (req, res) => {
 // Add user to database
 router.post('/', async (req, res) => {
   // Get information from the user
-  const { username, password, repeatPassword } = req.body;
+  const { username, bio, password, repeatPassword } = req.body;
   const regTest = /[^0-9a-z]/i;
 
   // Checks for form entry errors
@@ -56,7 +57,8 @@ router.post('/', async (req, res) => {
   // Create a new user to be saved into the database
   user = new User({
     username,
-    password
+    password,
+    bio
   });
 
   // Hash the password
@@ -94,8 +96,9 @@ router.post('/', async (req, res) => {
 
 
 
-// Update a user
-router.put('/update', auth, async (req, res) => {
+// Update a user's password
+// This route only updates the password
+router.put('/update-password', auth, async (req, res) => {
   let { username, password, newPassword, repeatPassword } = req.body;
   if (newPassword !== repeatPassword) return res.status(401).json({ msg: 'Passwords do not match.' });
 
@@ -125,6 +128,39 @@ router.put('/update', auth, async (req, res) => {
       { new: true }
     )
     return res.status(200).json({ msg: 'Password updated.' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+
+// Update User
+// Update either the username or bio
+router.put('/update-user', auth, async (req, res) => {
+  let { username, bio } = req.body;
+  let id = mongoose.Types.ObjectId(req.user.id);
+  let updatedUser = {
+    id,
+    username,
+    bio
+  };
+
+  try {
+    let user = await User.findById( id );
+    if (!user) return res.status(401).json({ msg: 'User not found.' });
+
+    // updatedUser needs to add password
+    updatedUser.password = user.password;
+    console.log(updatedUser);
+
+    user = await User.findOneAndUpdate(
+      { _id: id },
+      { $set: updatedUser },
+      { new: true }
+    )
+    console.log(user);
+    return res.status(200).json({ msg: 'User updated.' });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ msg: 'Server error' });

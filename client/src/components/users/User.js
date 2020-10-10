@@ -10,7 +10,7 @@ const User = ({ user }) => {
       <Card.Img src={DefaultUser} />
       <Card.Body>
         <Card.Title>{user.username}</Card.Title>
-        <Card.Text>Hello world! I am a default user, thank you for visiting me!</Card.Text>
+        <Card.Text>{user.bio ? user.bio : 'Hello world!'}</Card.Text>
       </Card.Body>
     </Card>
   )

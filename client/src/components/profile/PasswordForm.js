@@ -6,9 +6,9 @@ import Button from 'react-bootstrap/button';
 import MyForm from '../layout/MyForm';
 
 import { connect } from 'react-redux';
-import { updateUser } from '../../actions/user';
+import { updateUserPassword } from '../../actions/user';
 
-const PasswordForm = ({ username, updateUser }) => {
+const PasswordForm = ({ username, updateUserPassword }) => {
   const [ formInput, setFormInput ] = useState({
     password: '',
     newPassword: '',
@@ -29,7 +29,7 @@ const PasswordForm = ({ username, updateUser }) => {
       username
     }
     console.log(body);
-    updateUser(body);
+    updateUserPassword(body);
   }
 
   return (
@@ -74,10 +74,10 @@ const PasswordForm = ({ username, updateUser }) => {
 }
 
 PasswordForm.propTypes = {
-  updateUser: PropTypes.func.isRequired
+  updateUserPassword: PropTypes.func.isRequired
 }
 
 export default connect(
   null,
-  { updateUser }
+  { updateUserPassword }
 )(PasswordForm);

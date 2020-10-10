@@ -13,6 +13,10 @@ const userSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
+  },
+  bio: {
+    type: String,
+    default: 'Hello world! I am a default user, thank you for visiting me!'
   }
 });
 

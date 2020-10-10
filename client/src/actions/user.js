@@ -57,7 +57,7 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
   }
 }
 
-export const updateUser = ({ username, password, newPassword, repeatPassword }) => async dispatch => {
+export const updateUserPassword = ({ username, password, newPassword, repeatPassword }) => async dispatch => {
   const options = {
     headers: {
       'Content-type': 'application/json'
@@ -65,7 +65,7 @@ export const updateUser = ({ username, password, newPassword, repeatPassword }) 
   };
   const body = JSON.stringify({ username, password, newPassword, repeatPassword });
   try {
-    const res = await axios.put(`/api/users/update`, body, options);
+    const res = await axios.put(`/api/users/update-password`, body, options);
     dispatch({ type: LOGOUT_USER });
     dispatch({
       type: UPDATE_USER,
