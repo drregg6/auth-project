@@ -152,15 +152,14 @@ router.put('/update-user', auth, async (req, res) => {
 
     // updatedUser needs to add password
     updatedUser.password = user.password;
-    console.log(updatedUser);
 
-    user = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { _id: id },
       { $set: updatedUser },
       { new: true }
     )
-    console.log(user);
-    return res.status(200).json({ msg: 'User updated.' });
+    let users = await User.find();
+    return res.status(200).json(users);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ msg: 'Server error' });

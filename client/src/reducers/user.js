@@ -3,6 +3,7 @@ import {
   GET_USER,
   CLEAR_USER,
   ADD_USER,
+  UPDATE_USER,
   DELETE_USER
 } from '../actions/types';
 
@@ -32,6 +33,12 @@ export default function(state = initialState, action) {
         ...state,
         isLoading: false,
         users: [...state.users, payload]
+      }
+    case UPDATE_USER:
+      return {
+        ...state,
+        isLoading: false,
+        users: [...payload]
       }
     case CLEAR_USER:
       return {

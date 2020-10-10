@@ -57,6 +57,26 @@ export const addUser = ({ username, password, repeatPassword }) => async dispatc
   }
 }
 
+export const updateUser = ({ username, bio }) => async dispatch => {
+  const options = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({ username, bio });
+  try {
+    const res = await axios.put(`/api/users/update-user`, body, options);
+    dispatch({
+      type: UPDATE_USER,
+      payload: res.data
+    });
+    dispatch(setAlert('User successfully updated!'));
+  } catch (error) {
+    dispatch(setAlert(error.response.data.msg));
+    console.error(error);
+  }
+}
+
 export const updateUserPassword = ({ username, password, newPassword, repeatPassword }) => async dispatch => {
   const options = {
     headers: {
