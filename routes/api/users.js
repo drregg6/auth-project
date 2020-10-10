@@ -149,6 +149,8 @@ router.put('/update-user', auth, async (req, res) => {
   try {
     let user = await User.findById( id );
     if (!user) return res.status(401).json({ msg: 'User not found.' });
+    let otherUser = await User.findOne({ username: updatedUser.username });
+    if (otherUser) return res.status(401).json({ msg: 'Username already exists.' });
 
     // updatedUser needs to add password
     updatedUser.password = user.password;

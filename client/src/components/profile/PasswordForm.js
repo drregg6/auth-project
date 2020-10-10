@@ -28,7 +28,6 @@ const PasswordForm = ({ username, updateUserPassword }) => {
       ...formInput,
       username
     }
-    console.log(body);
     updateUserPassword(body);
   }
 
