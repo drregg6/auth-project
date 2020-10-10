@@ -31,12 +31,16 @@ const Profile = ({
   useEffect(() => {
     if (currentUser !== null) {
       getUser(currentUser.username);
-      setUserInput({
-        username: currentUser.username,
-        bio: currentUser.bio
-      })
     }
   }, [isLoading]);
+  useEffect(() => {
+    if (user !== null) {
+      setUserInput({
+        username: user.username,
+        bio: user.bio
+      });
+    }
+  }, [user])
   let { username, bio } = userInput;
 
   const handleChange = ev => {
@@ -61,8 +65,6 @@ const Profile = ({
       bio: user.bio
     });
   }
-
-  window.onClick(() => alert('Clicked'));
 
   let render = user !== null && (
     <>
