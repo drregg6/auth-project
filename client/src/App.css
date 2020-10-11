@@ -101,9 +101,27 @@ footer {
   background: rgba(255,255,255,0.75);
   color: #000;
   border: 2px solid #000;
+  padding: 2.5rem 3rem;
+  margin: 3rem auto;
 }
 .inverse-form h1 {
   font-size: 1.8rem;
+}
+
+.bio {
+  
+}
+.bio form {
+  display: inline-block;
+}
+.bio form input,
+.bio .btn {
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+}
+.bio form input {
+  width: 60vw;
 }
 
 /* Bootstrap Override */

@@ -13,6 +13,8 @@ import {
   updateUser
 } from '../../actions/user';
 
+
+
 const Profile = ({
   getUser,
   deleteUser,
@@ -66,20 +68,25 @@ const Profile = ({
     });
   }
 
+
+
   let render = user !== null && (
     <>
       <h1 style={{ textAlign: 'center' }}>
         Profile for{' '}
           {
             displayEditUsername ? (
-              <form onSubmit={(ev) => handleSubmit(ev)}>
-                <input
-                  type="text"
-                  name="username"
-                  value={username}
-                  onChange={(ev) => handleChange(ev)}
-                />
-              </form>
+              <>
+                <form onSubmit={(ev) => handleSubmit(ev)}>
+                  <input
+                    type="text"
+                    name="username"
+                    value={username}
+                    onChange={(ev) => handleChange(ev)}
+                  />
+                </form>
+                {' '}<span onClick={() => toggleEditBio(!displayEditBio)}>x</span>
+              </>
             ) : (
               user !== null && user.username 
             )} { !displayEditUsername ? (
@@ -88,11 +95,10 @@ const Profile = ({
               <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
             )}
       </h1>
-      <div style={{ textAlign: 'center', margin: '0 auto' }}>
-        <h2>Bio</h2>
-        <p>
-          {
-            displayEditBio ? (
+      <div className="bio" style={{ textAlign: 'center', margin: '0 auto' }}>
+        {
+          displayEditBio ? (
+            <>
               <form onSubmit={(ev) => handleSubmit(ev)}>
                 <input
                   type="text"
@@ -101,14 +107,15 @@ const Profile = ({
                   onChange={(ev) => handleChange(ev)}
                 />
               </form>
-            ) : (
-              user !== null && user.bio
-          )} { !displayEditBio ? (
-            <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditBio(!displayEditBio)} />
+              {' '}<span onClick={() => toggleEditBio(!displayEditBio)}>x</span>
+            </>
           ) : (
-            <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
-          )}
-        </p>
+            user !== null && user.bio
+        )} { !displayEditBio ? (
+          <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditBio(!displayEditBio)} />
+        ) : (
+          <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
+        )}
       </div>
       <PasswordForm
         username={user.username}
@@ -126,6 +133,8 @@ const Profile = ({
     </Main>
   )
 }
+
+
 
 Profile.propTypes = {
   getUser: PropTypes.func.isRequired,
