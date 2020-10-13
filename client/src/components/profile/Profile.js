@@ -89,7 +89,7 @@ const Profile = ({
                     />
                     <InputGroup.Append>
                       <Button
-                        variant="outline-secondary"
+                        variant="outline-primary"
                         onClick={ev => handleSubmit(ev)}
                       >
                         Submit
@@ -119,7 +119,7 @@ const Profile = ({
                   />
                   <InputGroup.Append>
                     <Button
-                      variant="outline-secondary"
+                      variant="outline-primary"
                       onClick={ev => handleSubmit(ev)}
                     >
                       Submit

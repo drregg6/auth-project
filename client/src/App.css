@@ -1,3 +1,19 @@
+/* Colors */
+:root {
+  --dark-purple:#4F3A65;
+  --light-purple:#574F7D;
+  --dark-blue: #95ADBE;
+  --light-blue: #DFF0EA;
+  --orange: #F48256;
+  --light-orange: #FFB589;
+  --white: #fff;
+  --black: #111;
+  --gray: #aaa;
+  --silver: #ddd;
+  --red: #ff4136;
+  --true-red: #bc243c;
+}
+
 /* Global styles */
 header {
   /* background: rgba(255,255,255,0.5); */
@@ -11,7 +27,7 @@ footer {
   align-items: center;
   padding: 1rem 10px;
 
-  background: rgba(0,0,0,0.75);
+  background: var(--light-purple);
 }
 footer > .container {
   width: 200px;
@@ -28,17 +44,17 @@ footer > .container {
 
 .cancel {
   font-size: .75rem;
-  border: 1px solid red;
-  color: red;
-  background: white;
+  border: 1px solid var(--red);
+  color: var(--red);
+  background: var(--white);
   padding: 4px 6px;
 
   transition: all .25s;
   cursor: pointer;
 }
 .cancel:hover {
-  color: white;
-  background: red;
+  color: var(--white);
+  background: var(--red);
 }
 
 /* Layout */
@@ -72,7 +88,7 @@ footer > .container {
 
 .hero {
   width: 100vw;
-  height: 85vh;
+  height: 95vh;
   background: linear-gradient(
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.5)
@@ -86,15 +102,18 @@ footer > .container {
   justify-content: center;
   align-items: center;
   
-  color: #fff;
+  color: var(--white);
 }
 
 .hero a,
 .hero .welcome {
-  border: 2px double #fff;
+  border: 2px double var(--white);
   padding: 7px 10px;
   font-size: 14px;
-  color: #fff;
+  color: var(--white);
+}
+.hero-signup:hover {
+  color: var(--silver);
 }
 
 .my-form {
@@ -103,7 +122,7 @@ footer > .container {
   padding: 3.5rem 4rem 8rem;
 
   background: rgba(0,0,0,0.75);
-  color: #fff;
+  color: var(--white);
 }
 .my-form h1 {
   margin-bottom: 30px;
@@ -124,8 +143,8 @@ footer > .container {
 }
 .inverse-form {
   background: rgba(255,255,255,0.75);
-  color: #000;
-  border: 2px solid #000;
+  color: var(--black);
+  border: 2px solid var(--black);
   padding: 2.5rem 3rem;
   margin: 3rem auto;
 }
@@ -145,33 +164,42 @@ footer > .container {
 }
 
 a {
-  color: yellowgreen;
+  color: var(--orange);
 }
 a:hover {
-  color: green;
+  color: var(--light-orange);
 }
 .btn-primary {
-  background-color: blue;
-  border-color: blue;
+  background-color: var(--dark-blue);
+  border-color: var(--dark-blue);
 }
 .btn-primary:hover {
-  background-color: cornflowerblue;
-  border-color: cornflowerblue;
+  background-color: var(--light-blue);
+  border-color: var(--light-blue);
+}
+.btn-outline-primary {
+  border-color: var(--dark-blue);
+  color: var(--dark-blue)
+}
+.btn-outline-primary:hover {
+  background: var(--dark-blue);
+  border-color: var(--dark-blue);
+  color: var(--white);
 }
 .btn-outline-danger {
-  color: red;
-  border-color: red;
+  color: var(--red);
+  border-color: var(--red);
 }
 .btn-outline-danger:hover {
-  background: red;
-  border-color: red;
-  color: white;
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
 }
 .btn-danger {
-  border-color: red;
-  background: red;
+  border-color: var(--red);
+  background: var(--red);
 }
 .btn-danger:hover {
-  background: indianred;
-  border-color: indianred;
+  background: var(--true-red);
+  border-color: var(--true-red);
 }

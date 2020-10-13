@@ -12,7 +12,7 @@ const Index = ({
       <h1>Welcome to the Homepage</h1>
       <p>Check out our private pages</p>
       { !isAuthenticated ? (
-        <Link to="/signup">Sign Up Here ►</Link>
+        <Link to="/signup" className="hero-signup">Sign Up Here ►</Link>
       ) : (
         <p className="welcome">Welcome!</p>
       )}
