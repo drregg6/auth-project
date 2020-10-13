@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "toy project to practice authorization and authentication",
   "main": "server.js",
+  "engines": {
+    "node": "12.3.1"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.3.0",
