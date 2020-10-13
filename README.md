@@ -16,7 +16,8 @@
 A fullstack application using a MongoDB database, Node and Express server, and React frontend. The application is built to practice several aspects of fullstack development- server side testing with **_**Jest**_**, authorization with **_**JWT**_**, and writing a backend with **mongoose**. On the frontend, Redux was used for more auth practice, while I also used two new technologies: **_**react-toastify**_** and **_**react-bootstrap**_**.
 
 ## Screenshots
-![screenshot](./src/images/imagename.png)
+![homepage](./img/homepage.jpg)
+![updating](./img/profile_update.png)
 
 ## Technologies - Backend
 * Node - version 12.3.1
