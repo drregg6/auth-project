@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/button';
+import {
+  Container,
+  Row,
+  Col
+} from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
@@ -12,24 +17,43 @@ const Footer = ({
 }) => {
   return (
     <footer>
-      <div>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/users">Users</Link></li>
-          <li><Link to="/private">Private</Link></li>
-          { isAuthenticated ? (
-            <>
-              <li><Link to="/profile">Profile</Link></li>
-              <Button onClick={() => logout()}>Logout</Button>
-            </>
-          ) : (
-            <>
-              <li><Link to="/signup">Sign Up</Link></li>
-              <li><Link to="/login">Login</Link></li>
-            </>
-          )}
-        </ul>
-      </div>
+      <Container>
+        <Row>
+          <Col><Link to="/">Home</Link></Col>
+          <Col>
+            {
+              isAuthenticated ? (
+                <Link to="/private">Private</Link>
+              ) : (
+                <Link to="/login">Login</Link>
+              )
+            }
+          </Col>
+        </Row>
+        <Row>
+          <Col><Link to="/users">Users</Link></Col>
+          <Col>
+            {
+              isAuthenticated ? (
+                <Link to="/profile">Profile</Link>
+              ) : (
+                <Link to="/signup">Sign up</Link>
+              )
+            }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {
+              isAuthenticated ? (
+                <Button variant="danger" size="sm" onClick={() => logout()}>Logout</Button>
+              ) : (
+                <Link to="/private">Private</Link>
+              )
+            }
+          </Col>
+        </Row>
+      </Container>
       <div>
         &copy;{new Date().getFullYear()} <a href="https://github.com/drregg6" target="_blank" rel="noopener noreferrer">Dave Regg</a>
       </div>

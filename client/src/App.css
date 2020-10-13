@@ -13,8 +13,33 @@ footer {
 
   background: rgba(0,0,0,0.75);
 }
+footer > .container {
+  width: 200px;
+  margin: 0;
+}
 
 /* Custom styles */
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
+
+.cancel {
+  font-size: .75rem;
+  border: 1px solid red;
+  color: red;
+  background: white;
+  padding: 4px 6px;
+
+  transition: all .25s;
+  cursor: pointer;
+}
+.cancel:hover {
+  color: white;
+  background: red;
+}
 
 /* Layout */
 .my-container {
@@ -108,20 +133,10 @@ footer {
   font-size: 1.8rem;
 }
 
-.bio {
-  
-}
-.bio form {
-  display: inline-block;
-}
-.bio form input,
-.bio .btn {
-  font-size: 1rem;
-  padding: 0;
-  margin: 0;
-}
-.bio form input {
-  width: 60vw;
+.bio-form form,
+.profile-header-form form {
+  min-width: 50vw;
+  margin: 0 auto;
 }
 
 /* Bootstrap Override */

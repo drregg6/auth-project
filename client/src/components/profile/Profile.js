@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 import Edit from '../../images/edit.png';
 
 import Main from '../layout/Main';
@@ -72,49 +74,65 @@ const Profile = ({
 
   let render = user !== null && (
     <>
-      <h1 style={{ textAlign: 'center' }}>
+      <h1 className="profile-header" style={{ textAlign: 'center' }}>
         Profile for{' '}
           {
             displayEditUsername ? (
-              <>
-                <form onSubmit={(ev) => handleSubmit(ev)}>
-                  <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={(ev) => handleChange(ev)}
-                  />
+              <div className="profile-header-form">
+                <form onSubmit={(ev) => handleSubmit(ev)} className="inline-block">
+                  <InputGroup>
+                    <FormControl
+                      type="text"
+                      name="username"
+                      value={username}
+                      onChange={ev => handleChange(ev)}
+                    />
+                    <InputGroup.Append>
+                      <Button
+                        variant="outline-secondary"
+                        onClick={ev => handleSubmit(ev)}
+                      >
+                        Submit
+                      </Button>
+                    </InputGroup.Append>
+                  </InputGroup>
                 </form>
-                {' '}<span onClick={() => toggleEditBio(!displayEditBio)}>x</span>
-              </>
+                {' '}<span className="cancel" onClick={() => toggleEditUsername(!displayEditUsername)}>x</span>
+              </div>
             ) : (
               user !== null && user.username 
-            )} { !displayEditUsername ? (
+            )} { !displayEditUsername && (
               <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditUsername(!displayEditUsername)} />
-            ) : (
-              <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
             )}
       </h1>
       <div className="bio" style={{ textAlign: 'center', margin: '0 auto' }}>
         {
           displayEditBio ? (
-            <>
-              <form onSubmit={(ev) => handleSubmit(ev)}>
-                <input
-                  type="text"
-                  name="bio"
-                  value={bio}
-                  onChange={(ev) => handleChange(ev)}
-                />
+            <div className="bio-form">
+              <form onSubmit={(ev) => handleSubmit(ev)} className="inline-block">
+                <InputGroup>
+                  <FormControl
+                    type="text"
+                    name="bio"
+                    value={bio}
+                    onChange={ev => handleChange(ev)}
+                  />
+                  <InputGroup.Append>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={ev => handleSubmit(ev)}
+                    >
+                      Submit
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
               </form>
-              {' '}<span onClick={() => toggleEditBio(!displayEditBio)}>x</span>
-            </>
+              {' '}<span className="cancel" onClick={() => toggleEditBio(!displayEditBio)}>x</span>
+            </div>
           ) : (
             user !== null && user.bio
-        )} { !displayEditBio ? (
+        )} { !displayEditBio && (
           <img style={{ width: 25, height: 25 }} src={Edit} alt="Edit icon" onClick={() => toggleEditBio(!displayEditBio)} />
-        ) : (
-          <Button onClick={(ev) => handleSubmit(ev)}>Submit</Button>
         )}
       </div>
       <PasswordForm
