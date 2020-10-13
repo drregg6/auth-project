@@ -1,3 +1,4 @@
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
 import './App.css';
@@ -26,7 +27,6 @@ import setAuthToken from './utils/setAuthToken';
 import store from './store';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const App = ({ notification: { msg } }) => {
   useEffect(() => {
