@@ -143,3 +143,35 @@ footer > .container {
 .card-columns {
   columns: 3;
 }
+
+a {
+  color: yellowgreen;
+}
+a:hover {
+  color: green;
+}
+.btn-primary {
+  background-color: blue;
+  border-color: blue;
+}
+.btn-primary:hover {
+  background-color: cornflowerblue;
+  border-color: cornflowerblue;
+}
+.btn-outline-danger {
+  color: red;
+  border-color: red;
+}
+.btn-outline-danger:hover {
+  background: red;
+  border-color: red;
+  color: white;
+}
+.btn-danger {
+  border-color: red;
+  background: red;
+}
+.btn-danger:hover {
+  background: indianred;
+  border-color: indianred;
+}
