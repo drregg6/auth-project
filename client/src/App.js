@@ -1,3 +1,10 @@
+/*
+
+TODO
+= Username should not be case sensitive
+
+*/
+
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect } from 'react';
