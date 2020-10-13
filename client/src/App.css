@@ -23,7 +23,6 @@ header ul.nav {
 }
 
 .private {
-  background: url('./images/dan-dennis-giraffe.jpg');
   background-position: center center;
   background-size: cover;
   min-height: 95vh;
@@ -37,6 +36,7 @@ footer {
   padding: 1rem 10px;
 
   background: var(--light-purple);
+  color: var(--white);
 }
 footer > .container {
   width: 200px;
